@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Final Project</title>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+ <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+ <script src="https://d3js.org/d3.v3.min.js"></script>
+ <script src="//d3js.org/topojson.v1.min.js"></script>
+ <script src="http://d3-legend.susielu.com/d3-legend.min.js"></script>
+ <link rel="stylesheet" type="text/css" href="style.css">
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+      <h3>Amount of Restaurants of Each Category by Zip Code</h3>
+      <h6>Filter By:</h6>
+        <input type="radio" name="filter" id="poor" value="Poor">
+        <label for="poor">Poor</label>
+
+        <input type="radio" name="filter" id="needsimprovement" value="Needs Improvement">
+        <label for="needsimprovement">Needs Improvement</label>
+
+        <input type="radio" name="filter" id="adequate" value="Adequate">
+        <label for="adequate">Adequate</label>
+
+        <input type="radio" name="filter" id="good" value="Good" checked="true">
+        <label for="good">Good</label>
+
+        <a class="waves-effect waves-light btn" href="map.html"><i class="material-icons left">location_on
+    </i>Symbol Map</a>
+      <a class="waves-effect waves-light btn" href="barchart.html">
+        <i class="material-icons left">equalizer</i>
+        Stacked Bar Chart</a>
+
+      <center><svg></svg></center>
+
+
+      <br><br>
+  </div>
+</body>
+<script src="choropleth.js"></script>
+</html>

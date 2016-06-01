@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <title>Final Project</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body>
+      <nav>
+      <div class="nav-wrapper teal darken-3">
+      <a href="#" class="brand-logo">San Francisco Restaurants - Health Inspections</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+         <li><a href="map.html">Symbol Map</a></li>
+         <li><a href="barchart.html">Stacked Bar Chart</a></li>
+         <li><a href="choropleth.html">Choropleth Map</a></li>
+      </ul>
+      </div>
+      </nav>
+      <br>
+
+       <div class="container">
+         <div class="slider">
+            <ul class="slides">
+              <li>
+                <a href="map.html"><img src="img/symbol.png"></a>
+                <div class="caption right-align">
+                  <h3 class="grey-text text-darken-4">Symbol Map</h3>
+                  <h5 class="grey-text text-darken-4">Average Safety Scores for SF Restaurants</h5>
+                </div>
+              </li>
+              <li>
+                <a href="barchart.html"><img src="img/stackedBar.png"></a>
+                <div class="caption right-align">
+                  <h3 class="grey-text text-darken-4">Stacked Bar Chart</h3>
+                  <h5 class="grey-text text-darken-4">Average Safety Scores Distributed by SF Zip Code</h5>
+                </div>
+              </li>
+              <li>
+                <a href="choropleth.html"><img src="img/choropleth.png"></a>
+                <div class="caption center-align">
+                  <h3 class="grey-text text-darken-4">Choropleth Map</h3>
+                  <h5 class="grey-text text-darken-4">Amount of Restaurants of Each Category by Zip Code</h5>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <h3>Biography</h3>
+          <p>
+          Hey there! My name is Bryan Relampagos, and I'm a senior Computer Science major at the University of San Francisco. I grew up in San Jose, California, but I currently live in San Francisco. If you'd like to get in touch with me, shoot me an email: barelampagos@dons.usfca.edu
+          </p>
+
+          <h3>Original Dataset Information</h3>
+          <p>
+           For this visualization, I am using the <a href="https://data.sfgov.org/Health-and-Social-Services/Food-Inspections-LIVES-Standard/pyih-qa8i">Food Inspections - LIVES Standard</a> dataset, which was found on SF OpenData. The dataset itself includes 52663 rows, one row per Health violation found at a restaurant. Many restaurants span a couple rows, as they may have several health violations. There are multiple columns, but the ones of particular interest are:
+           <br>
+           <ol>
+             <li>business_name: Name of the Business</li>
+             <li>business_address: Street Address of the business</li>
+             <li>business_postal_code: Business postal code</li>
+             <li>business_location: Latitude and Longitude of the business in the format - (Lat, Long)</li>
+             <li>inspection_date: Date and time a specific restaurant's inspection was conducted</li>
+             <li>inspection_score: Overall score of the inspection on a scale from 0-100 (0-70 Poor, 71-85 Needs Improvement, 86-90 Adequate, 91-100 Good)</li>
+             <li>violation_description: Short description of restaurant violation.</li>
+             <li>risk_category: Scale of risk from Low Risk to High Risk</li>
+          </ol>
+
+           <br>
+           The other columns are: business_id, business_city, business_state, business_latitude, business_longitude, business_phone_number, inspection_id, inspection_type, and violation_id.
+          </p>
+
+          <h3>Data Processing</h3>
+          <p>
+            For this dataset, I did all my data preprocessing all in d3. In terms of filtering, I filtered out any of the data entries that:
+            <ol>
+              <li>Did not have a valid zip code (e.g 00000 and 941033148)</li>
+              <li>Did not have values for coordinates</li>
+              <li>Had no health safety score assigned to it</li>
+              <li>Contained schools (I wanted the emphasis to be on the restaurants)</li>
+            </ol>
+            For each restaurant in this dataset, I also took the average of each score that was listed in this dataset, and assigned the restaurant an Operating Condition Category based on this score. This criteria was taken from the San Francisco Department of Public Health, and that can be found             <a href="https://www.sfdph.org/dph/EH/Food/score/default.asp">here</a>.
+          </p>
+          <center>
+          <a href="https://www.sfdph.org/dph/EH/Food/score/default.asp">
+            <img src="img/criteria.png">
+          </a></center>
+          <p>
+            In addition, there were specific things that needed to be done for each visualization. For the maps (symbol and choropleth), I decided to divide the map of San Francisco by the zip code regions. I was able to download a Shapefile containing all of the coordinates/boundaries for these regions at <a href="https://data.sfgov.org/Geographic-Locations-and-Boundaries/San-Francisco-ZIP-Codes-Zipped-Shapefile-Format-/9q84-kc2y">SF OpenData</a>. Unfortuantely, this data was encoded in an ESRI format, and in order for it to be useful for my visualization, I had to translate these coordinates to a EPSG:4326 encoding. I used <a href="http://www.kyngchaos.com/software/qgis">QGIS</a>, an open source geographic software to encode this Shapefile to EPSG:4326, and then I used <a href="http://www.mapshaper.org/">mapshaper</a> to convert this Shapefile into a usable GeoJSON format. For the bar chart, I filtered out any of the zipcodes that had less than 10 restaurants located within them.
+          </p>
+
+
+
+          <h3>Motivation</h3>
+          <p>
+            My motivation for choosing to visualize this dataset comes from the fact that many restaurants don't necessarily provide the details about their health safety scores. According to the San Francisco Department of Public Health, food establishments are required to post their inspection reports in a clearly visible place such that the general public is able to easily see it. However, not all restaurants abide by this rule, so my hope is that this visualization will make the every day person more aware of the scores. If more people are aware of restaurants health scores, hopefully they will somewhat boycott those businesses, which could lead to the business stepping up their game on their health safety regulations.
+          </p>
+
+          <h3>Visualizations/Findings</h3>
+          <p>
+            The visualizations can be accessed either through the navigation bar at the top of this page, or by clicking the appropriate images on the slider. Or, you can click the images below to see each visualization.
+          <p>
+          <div class="row">
+            <div class="col s4">
+              <h5>Symbol Map</h5>
+              <a href="map.html">
+                <img class="responsive-img" src="img/symbol.png">
+              </a>
+            </div>
+            <div class="col s8">
+              <p>
+                For the symbol map, it's primary intention is to provide the user an easy way to visually see the restaurants in the dataset in terms of both location and average restaurant score. One immediate take away from this visualization is that a majority of restaurants fall into the "Good" category, as well as a very small amount of restaurants fall into the "Poor" category. This means that most San Francisco restaurants are abiding by the health standards put out by the SF Dept. of Public Health. Another interesting thing to see is that there is a large clump of "Needs Improvement" and "Poor" restaurants that can be seen in the downtown area, particularly the 94102, 94108, 94109, and 94133 areas. These areas are located around the Tenderloin (94102), Chinatown (94108), Nob Hill (94109), and North Beach/Chinatown (94133).
+              </p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s4">
+              <h5>Stacked Bar Chart</h5>
+              <a href="barchart.html">
+                <img class="responsive-img" src="img/stackedBar.png">
+              </a>
+            </div>
+            <div class="col s8">
+              <p>
+                For the bar chart, it's intention is to provide the user an easy way to visualize the amounts of restaurants in each category that are located in each zip code. Similar to the symbol map, we can clearly see that a majority of restaurants do fall into the "Good" category, and very few fall into the "Poor" category. While a majority of zip codes have an larger percentage of "Good" restaurants, some have a somewhat skewed distribution of restaurants. For example, 94133 has 151 "Needs Improvement" and "Good" restaurants, while there are 72 "Adequate" restaurants. Another interesting zip code worth taking a look at is the 94122 area, where there are actually more "Needs Improvement" restaurants than "Good" ones.
+              </p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s4">
+              <h5>Choropleth Map</h5>
+              <a href="choropleth.html">
+                <img class="responsive-img" src="img/choropleth.png">
+              </a>
+            </div>
+            <div class="col s8">
+              <p>
+                For the choropleth map, it's intention is similar to the stacked bar chart of showing the restaurant distribution, but it allows the user to get a better sense of where these zip codes are geographically in San Francisco. Some things worth noting about this visualization is that a majority of "Good" Restaurants can be found in the 94103 (South of Market), 94107 (Potrero Hill), and 94110 (Inner Mission/Bernal Heights) areas. This makes sense, as a majority of restaurants can be found in the downtown/SoMa area. On the other side of things, the 94102 or Tenderloin area has the most "Poor" restaurants, which can be somewhat, but not completely, attributed to the seedy reputation of this neighborhood.
+              </p>
+            </div>
+          </div>
+
+        </div>
+</body>
+<script>
+    $(document).ready(function(){
+      $('.slider').slider({full_width: true});
+    });
+</script>
+</html>

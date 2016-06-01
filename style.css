@@ -1,0 +1,79 @@
+#tooltip {
+  font-weight: 600;
+  text-shadow: 0px 0px 2px white;
+
+  fill: black;
+  stroke: none;
+}
+
+#details {
+  text-align: left;
+}
+
+path.zipArea {
+  fill: #dddddd;
+  stroke: white;
+  stroke-width: 2px;
+}
+
+.active {
+  stroke: blue !important;
+  stroke-width: 2px !important;
+}
+
+circle.symbol {
+  fill-opacity: 0.6;
+
+  stroke: white;
+  stroke-width: 1px;
+}
+
+.axis path,
+.axis line {
+  stroke: none;
+  fill: none;
+}
+
+.axis text {
+  fill: dimgrey;
+  font-size: 12px;
+}
+
+.legend line,
+.legend path {
+  stroke: dimgrey;
+  fill: none;
+}
+
+.legend text {
+  font-size: 10px;
+  fill: dimgrey;
+}
+
+text.label {
+  font-size: 12px;
+  text-align: center;
+}
+
+label {
+  padding-right: 50px;
+}
+
+.legendTitle {
+  font-weight: bold;
+}
+
+.legendText {
+  font-size: 10px;
+}
+
+.x.axis path,
+.x.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.y.axis path {
+  display: none;
+}
