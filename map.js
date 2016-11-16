@@ -151,41 +151,41 @@ function callback(error, rows) {
       details.style({"visibility": "hidden"});
     });
 
-    var legend = d3.legend.color()
-        .labelFormat(d3.format(",.0f"))
-        .cells(10)
-        .scale(scoreScale);
-
-    svgMap.append("g")
-      .attr("class", "legendQuant")
-      .attr("transform", translate(95, 150))
-      .call(legend);
-
-    svgMap.append("text")
-      .attr("class", "legendTitle")
-      .attr("transform", translate(0, 145))
-      .text("Safety Score Categories");
-
-    svgMap.append("text")
-      .attr("class", "legendText")
-      .attr("transform", translate(0, 161))
-      .text("Poor");
-
-    svgMap.append("text")
-      .attr("class", "legendText")
-      .attr("transform", translate(0, 178))
-      .text("Needs Improvement");
-
-    svgMap.append("text")
-      .attr("class", "legendText")
-      .attr("transform", translate(0, 195))
-      .text("Adequate");
-
-    svgMap.append("text")
-      .attr("class", "legendText")
-      .attr("transform", translate(0, 212))
-      .text("Good");
-
+    // TODO: Fix bug: legend = undefined?
+    // var legend = d3.legend.color()
+    //     .labelFormat(d3.format(",.0f"))
+    //     .cells(10)
+    //     .scale(scoreScale);
+    //
+    // svgMap.append("g")
+    //   .attr("class", "legendQuant")
+    //   .attr("transform", translate(95, 150))
+    //   .call(legend);
+    //
+    // svgMap.append("text")
+    //   .attr("class", "legendTitle")
+    //   .attr("transform", translate(0, 145))
+    //   .text("Safety Score Categories");
+    //
+    // svgMap.append("text")
+    //   .attr("class", "legendText")
+    //   .attr("transform", translate(0, 161))
+    //   .text("Poor");
+    //
+    // svgMap.append("text")
+    //   .attr("class", "legendText")
+    //   .attr("transform", translate(0, 178))
+    //   .text("Needs Improvement");
+    //
+    // svgMap.append("text")
+    //   .attr("class", "legendText")
+    //   .attr("transform", translate(0, 195))
+    //   .text("Adequate");
+    //
+    // svgMap.append("text")
+    //   .attr("class", "legendText")
+    //   .attr("transform", translate(0, 212))
+    //   .text("Good");
 
     // Allows for filtering
     d3.selectAll("input").on("change", function() {
